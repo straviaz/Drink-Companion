@@ -18,7 +18,7 @@
 - Improve the UI so it doesn't look like it was made in Microsoft Office Word
 - Calculate digestion and drink over time
 
-### Calculation
+### Calculations
 ##### Standard Drink
 
 
