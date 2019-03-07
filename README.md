@@ -9,7 +9,7 @@
 ### Features
 - Add personal information to help with the BAC calculation: height, weight, age, and sex.
 - Manually add drinks
-- Search drink from database
+- Search drinks from Constellation Brand and Wegmans APIs
 - View your approximated alcohol intoxication level
 - Read about alcohol intoxication level
 
