@@ -2,37 +2,65 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.IO;
+
 
 public class exceldata : MonoBehaviour
 {
     List<drinkObject> results = new List<drinkObject>();
+    [SerializeField] List<GameObject> print = new List<GameObject>();
     [SerializeField] GameObject Inputbox;
     [SerializeField] GameObject dropdown;
+    //public TextAsset data;
     // Start is called before the first frame update
     void Onclick()
     {
+        results.Clear();
+        for(int i = 0; i < 5; i++)
+        {
+            print[i].GetComponent<Text>().text = " ";
+        }
         string type = dropdown.GetComponent<Dropdown>().captionText.text;
         string input = Inputbox.GetComponent<InputField>().text;
-        TextAsset data = Resources.Load<TextAsset>(type);
-        string[] parse = data.text.Split(new char[] { '\n' });
-        for(int i = 1; i < parse.Length - 1; i++)
-        {
-            string[] row = parse[i].Split(new char[] { ',' });
+        string path = "Assets/Resources/"+type+".txt";
+
+        //Read the text from directly from the test.txt file
+        StreamReader reader = new StreamReader(path);
+        //using (var reader = new StreamReader("Assets/Resources/"+ type + ".csv"))
+        //Debug.Log(type + ".csv");
+        //TextAsset data = Resources.Load<TextAsset>(type+".csv");
+        
+        while (!reader.EndOfStream) {
+            string ro = reader.ReadLine();
+                string[]row=ro.Split(new char[] { ',' });
             if (row[0].ToLower().Contains(input.ToLower())){
                 drinkObject d = new drinkObject();
-                d.name = row[0];
+                d.Dname = row[0];
                 d.description = row[1];
-                d.brand = row[3];
-                int.TryParse(row[2], out d.abv);
+                for(int i = 2; i < 10; i++)
+                {
+                    var isdouble = Double.TryParse(row[i], out double result);
+                    if (isdouble == true)
+                    {
+                        d.abv = Convert.ToInt32(result);
+                        d.brand = row[i+1];
+                        break;
+                    }
+                }
                 results.Add(d);
             }
         }
+       int count = 0;
        foreach(drinkObject d in results)
         {
-            Debug.Log(d.name);
+            if (count == 5)
+            {
+                break;
+            }
+            print[count].GetComponent<Text>().text = d.Dname +"     abv: "+d.abv+"%";
+            count++;
         }
+
     }
 
     // Update is called once per frame
