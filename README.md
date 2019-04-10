@@ -1,5 +1,5 @@
 # Drink-Companion
-(Team) An android application that helps the user keep track of his/her own BAC and intoxication level. WiCHacks Constellation Brand Winner.
+An android application that helps the user keep track of his/her own BAC and intoxication level. WiCHacks Constellation Brand Winner.
 
 ### Team Members
 - Joy Sangsrichan
